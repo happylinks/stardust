@@ -12,6 +12,7 @@ import {
   Menu,
   Icon,
   Input,
+  Label,
 } from 'src'
 
 const parentComponents = _.flow(
@@ -195,6 +196,14 @@ export default class Sidebar extends Component {
           <Menu.Menu>
             <Menu.Item as={Link} to='/introduction' activeClassName='active'>
               Introduction
+            </Menu.Item>
+            <Menu.Item as={Link} to='/component-explorer' activeClassName='active'>
+              Component Explorer
+              <Label color='orange' size='tiny'>new</Label>
+            </Menu.Item>
+            <Menu.Item as={Link} to='/sandbox' activeClassName='active'>
+              Sandbox
+              <Label color='orange' size='tiny'>new</Label>
             </Menu.Item>
             <Menu.Item as='a' href='https://github.com/TechnologyAdvice/stardust'>
               <Icon name='github' /> GitHub
