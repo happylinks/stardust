@@ -512,6 +512,32 @@ export const implementsWidthProp = (Component, options, requiredProps = {}) => {
   })
 }
 
+/**
+ * Assert that a Component correctly implements a shorthand prop.
+ * @param {function} Component The component to test.
+ * @param {string} propKey The name of the shorthand prop.
+ * @param {function} [SubComponent] An optional sub component where the shorthand should be rendered.
+ * @param {Object} [requiredProps={}] Props required to render the component.
+ */
+export const implementsShorthandProp = (Component, propKey, SubComponent, requiredProps = {}) => {
+  describe(`shorthand ${propKey} prop (common)`, () => {
+    if (!Component) throw new Error(`implementsShorthandProp requires a Component, got: ${typeof Component}`)
+    if (!propKey) throw new Error(`implementsShorthandProp requires a propKey, got: ${typeof propKey}`)
+    if (!SubComponent) throw new Error(`implementsShorthandProp requires a SubComponent, got: ${typeof SubComponent}`)
+
+    if (SubComponent) {
+      it(`renders ${SubComponent._meta.name} with '${propKey}' value`, () => {
+        const text = faker.hacker.phrase()
+
+        shallow(createElement(Component, { ...requiredProps, [propKey]: text }))
+          .should.contain(<SubComponent content={text} />)
+      })
+    } else {
+      // TODO: handle shorthand props without sub components
+    }
+  })
+}
+
 export const implementsIconProp = (Component, requiredProps = {}) => {
   const iconName = faker.hacker.noun()
   const assertValid = (element, expectedName = iconName) => {
