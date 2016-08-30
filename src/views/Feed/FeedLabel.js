@@ -10,14 +10,18 @@ import {
 import { createIcon, createImg } from '../../factories'
 
 function FeedLabel(props) {
-  const { children, className, icon, image } = props
+  const { children, className, content, icon, image } = props
   const classes = cx(className, 'label')
   const rest = getUnhandledProps(FeedLabel, props)
   const ElementType = getElementType(FeedLabel, props)
 
+  if (children) {
+    return <ElementType {...rest} className={classes}>{children}</ElementType>
+  }
+
   return (
     <ElementType {...rest} className={classes}>
-      {children}
+      {content}
       {createIcon(icon)}
       {createImg(image)}
     </ElementType>
@@ -40,20 +44,17 @@ FeedLabel.propTypes = {
     PropTypes.node,
   ]),
 
+  /** Primary content of the FeedLabel. */
+  content: customPropTypes.shorthand,
+
   /** Classes that will be added to the FeedLabel className. */
   className: PropTypes.string,
 
   /** An event can contain icon label. */
-  icon: customPropTypes.every([
-    customPropTypes.disallow(['children', 'image']),
-    PropTypes.node,
-  ]),
+  icon: customPropTypes.icon,
 
   /** An event can contain image label. */
-  image: customPropTypes.every([
-    customPropTypes.disallow(['children', 'icon']),
-    PropTypes.node,
-  ]),
+  image: customPropTypes.image,
 }
 
 export default FeedLabel
