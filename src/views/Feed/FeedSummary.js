@@ -37,20 +37,20 @@ FeedSummary.propTypes = {
   /** An element type to render as (string or function). */
   as: customPropTypes.as,
 
-  /** Primary content of the FeedSummary. */
+  /** Primary content of the FeedSummary. Mutually exclusive with content */
   children: customPropTypes.every([
-    customPropTypes.disallow(['summary']),
+    customPropTypes.disallow(['content']),
     PropTypes.node,
   ]),
 
   /** Classes that will be added to the FeedSummary className. */
   className: PropTypes.string,
 
-  /** An event summary can contain a date. */
-  date: customPropTypes.shorthand,
-
-  /** Shorthand for children */
+  /** Shorthand for primary content of the FeedSummary. Mutually exclusive with children. */
   content: customPropTypes.shorthand,
+
+  /** Shorthand for the FeedDate component. Mutually exclusive with children. */
+  date: customPropTypes.shorthand,
 }
 
 export default FeedSummary
