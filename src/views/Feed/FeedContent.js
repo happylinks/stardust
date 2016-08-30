@@ -13,7 +13,7 @@ import FeedMeta from './FeedMeta'
 import FeedSummary from './FeedSummary'
 
 function FeedContent(props) {
-  const { children, className, extraImages, extraText, date, meta, summary } = props
+  const { children, className, content, extraImages, extraText, date, meta, summary } = props
   const classes = cx(className, 'content')
   const rest = getUnhandledProps(FeedContent, props)
   const ElementType = getElementType(FeedContent, props)
@@ -26,6 +26,7 @@ function FeedContent(props) {
     <ElementType {...rest} className={classes}>
       {date && <FeedDate content={date} />}
       {summary && <FeedSummary content={summary} />}
+      {content}
       {extraText && <FeedExtra text={extraText} />}
       {extraImages && <FeedExtra images={extraImages} />}
       {meta && <FeedMeta content={meta} />}
@@ -58,8 +59,8 @@ FeedContent.propTypes = {
   /** Classes that will be added to the FeedContent className. */
   className: PropTypes.string,
 
-  /** Deprecated. Use date, extraText, extraImages, meta, and summary instead. */
-  content: customPropTypes.deprecate('Use date, extraText, extraImages, meta, and summary instead.'),
+  /** Shorthand for children. */
+  content: customPropTypes.shorthand,
 
   /** An event can contain a date. */
   date: FeedDate.propTypes.content,

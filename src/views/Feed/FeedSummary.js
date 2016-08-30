@@ -8,9 +8,10 @@ import {
   META,
 } from '../../lib'
 import FeedDate from './FeedDate'
+import FeedUser from './FeedUser'
 
 function FeedSummary(props) {
-  const { children, className, content, date } = props
+  const { children, className, content, date, user } = props
   const classes = cx(className, 'summary')
   const rest = getUnhandledProps(FeedSummary, props)
   const ElementType = getElementType(FeedSummary, props)
@@ -21,8 +22,9 @@ function FeedSummary(props) {
 
   return (
     <ElementType {...rest} className={classes}>
+      {user && <FeedUser content={user} />}
       {content}
-      {date && <FeedDate date={date} />}
+      {date && <FeedDate content={date} />}
     </ElementType>
   )
 }
@@ -38,10 +40,7 @@ FeedSummary.propTypes = {
   as: customPropTypes.as,
 
   /** Primary content of the FeedSummary. Mutually exclusive with content */
-  children: customPropTypes.every([
-    customPropTypes.disallow(['content']),
-    PropTypes.node,
-  ]),
+  children: customPropTypes.children(FeedSummary),
 
   /** Classes that will be added to the FeedSummary className. */
   className: PropTypes.string,
@@ -51,6 +50,9 @@ FeedSummary.propTypes = {
 
   /** Shorthand for the FeedDate component. Mutually exclusive with children. */
   date: customPropTypes.shorthand,
+
+  /** Shorthand for the FeedUser component. Mutually exclusive with children. */
+  user: customPropTypes.shorthand,
 }
 
 export default FeedSummary

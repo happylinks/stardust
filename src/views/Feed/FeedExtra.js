@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import cx from 'classnames'
 import React, { PropTypes } from 'react'
 
@@ -22,11 +23,7 @@ function FeedExtra(props) {
   const ElementType = getElementType(FeedExtra, props)
 
   if (Array.isArray(images)) {
-    const imagesJSX = images.map((image, index) => {
-      const key = [index, image].join('-')
-
-      return createImg(image, { key })
-    })
+    const imagesJSX = _.map(images, (image, i) => createImg(image, { key: `${i}-${image}` }))
 
     return <ElementType {...rest} className={classes}>{imagesJSX}</ElementType>
   }
