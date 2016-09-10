@@ -49,6 +49,10 @@ export function createShorthand(Component, mapValueToProps, val, defaultProps = 
     return <Component {...mergePropsAndClassName(mapValueToProps(val), defaultProps)} />
   }
 
+  if (val === undefined && !_.isEmpty(defaultProps)) {
+    return <Component {...defaultProps} />
+  }
+
   // Otherwise null
   return null
 }
