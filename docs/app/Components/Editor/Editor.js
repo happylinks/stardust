@@ -5,7 +5,7 @@ import 'brace/mode/html'
 import 'brace/theme/tomorrow'
 
 function Editor(props) {
-  const { id, mode, readOnly, value } = props
+  const { id, mode, value, ...rest } = props
 
   return (
     <AceEditor
@@ -13,27 +13,29 @@ function Editor(props) {
       mode={mode}
       theme='tomorrow'
       width='100%'
-      height='100px'
       value={value}
       editorProps={{ $blockScrolling: Infinity, displayIndentGuides: false }}
+      enableBasicAutocompletion
+      enableLiveAutocompletion
       highlightActiveLine={false}
-      readOnly={readOnly}
       maxLines={Infinity}
       showGutter={false}
       showPrintMargin={false}
       tabSize={2}
+      {...rest}
     />
   )
 }
 
 Editor.propTypes = {
+  height: PropTypes.string,
   id: PropTypes.string.isRequired,
   mode: PropTypes.oneOf(['html', 'jsx']),
-  readOnly: PropTypes.bool,
   value: PropTypes.string.isRequired,
 }
 
 Editor.defaultProps = {
+  height: '100px',
   mode: 'jsx',
 }
 

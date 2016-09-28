@@ -1,4 +1,7 @@
+import _ from 'lodash/fp'
+
 import { META, SUI } from 'src/lib'
+import * as stardust from 'src'
 
 export const typeOrder = [
   META.TYPES.ELEMENT,
@@ -7,6 +10,11 @@ export const typeOrder = [
   META.TYPES.MODULE,
   META.TYPES.ADDON,
 ]
+
+export const parentComponents = _.flow(
+  _.filter(META.isParent),
+  _.sortBy('_meta.name')
+)(stardust)
 
 /**
  * Get the Webpack Context for all doc site examples.
